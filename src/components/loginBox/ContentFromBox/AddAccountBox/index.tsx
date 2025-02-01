@@ -45,7 +45,7 @@ function AddAccountBox( { setDefaultBox }){
 
             <RecoverAccount onClick={()=> 0}>Esqueceu sua conta? </RecoverAccount>
             <hr style={{width:"80%", color: "#dddfe2"}}/>
-            <CreateAccount>Criar uma nova conta</CreateAccount>
+            <CreateAccount onClick={() => setDefaultBox(3)}>Criar uma nova conta</CreateAccount>
         </Container>
     )
 }

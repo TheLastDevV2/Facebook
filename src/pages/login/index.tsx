@@ -4,6 +4,7 @@ import Logo from "../../assets/faceLogo.svg";
 import Box from "../../components/loginBox/BoxMain/index.tsx";
 import Footer from "../../components/footer/index.tsx";
 function LoginPage(){
+    
     return(
 
         <>

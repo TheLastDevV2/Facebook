@@ -46,10 +46,10 @@ function LoginBox({ setDefaultBox }){
          
 
             <LoginBoxFooter>
-                <SignUpBtn onClick={() => setDefaultBox(false)}>
-                    Sign up in another account
+                <SignUpBtn onClick={() => setDefaultBox(2)}>
+                    Entrar em outra conta
                 </SignUpBtn>
-                <CreateAccount>Create account</CreateAccount>
+                <CreateAccount onClick={() => setDefaultBox(3)}>Criar uma conta</CreateAccount>
             </LoginBoxFooter>
 
         </Container>
