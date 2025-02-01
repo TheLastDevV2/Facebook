@@ -10,6 +10,7 @@ export const Container = styled.div`
     min-width: 300px;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-around;
     padding-bottom: 132px ; 
     padding-top: 92px;
