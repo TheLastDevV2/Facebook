@@ -20,12 +20,7 @@ function Box(){
             <RegisterBox setDefaultBox={setDefaultBox}/>
             
             }
-            
-           
-            
-            
-         
-       
+        
         </>
        
     )

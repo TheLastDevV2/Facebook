@@ -1,23 +1,41 @@
 import React, {useState} from "react";
 import { InputBox, Form, Input, LoginTittle, LoginBtn } from "./styles.ts";
 
-function LoginForm({onLogin} ){
+import { Link,useNavigate } from "react-router-dom";
+import axios from "axios";
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+function LoginForm(){
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
+    const[data, setData] = useState({
+        email: "",
+        password: ""
+    });
+
+    const [error,setError]= useState("");
     
-        if (!email || !password){
-            
-            return;
-        }
+    const navigate = useNavigate();
+
+
+    const handleChange = ({currentTarget: input}) =>{
+        setData({...data, [input.name]: input.value});
+    };
+
+    const handleSubmit = async (e) =>{
+       e.preventDefault();
+       try {
+            const url = "http://localhost:8000/api/auth";
+            const {data: res} = await axios.post(url, data);
+            console.log(res.message);
+            navigate("/dashboard");           
+        } catch (error) {
+            if(error.response && 
+               error.response.status >= 400 &&
+               error.response.status <= 500
+            ){
+                setError(error.response.data.message);
+            }
+       }
     }
-
-    onLogin(email, password);
-    
-
     return(
         <>
         <LoginTittle>Login</LoginTittle>
@@ -27,9 +45,10 @@ function LoginForm({onLogin} ){
                 <Input
                 type="email"
                 id="email"
+                name="email"
                 placeholder="Email ou Telefone"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={data.email}
+                onChange={handleChange}
                 required
                 >
                 </Input>
@@ -39,15 +58,17 @@ function LoginForm({onLogin} ){
             <Input
                 type="password"
                 id="password"
+                name="password"
                 placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={data.password}
+                onChange={handleChange}
                 required
                 >
                 </Input>
             
             </InputBox>   
-
+            
+        {error && <div style={{ color: "red", marginBottom: "10px" }}>{error}</div>}
             <LoginBtn type="submit">Entrar</LoginBtn>
         </Form>
 

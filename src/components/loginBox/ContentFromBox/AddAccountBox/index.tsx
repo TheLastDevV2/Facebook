@@ -15,6 +15,7 @@ import LoginForm from "./LoginForm/index.tsx"
 function AddAccountBox( { setDefaultBox }){
     const [loginError, setLoginError] = useState("");
 
+    
     const handleLogin = (email, password) =>{
       
       console.log("Tentativa de login com:", email, password);
@@ -37,7 +38,7 @@ function AddAccountBox( { setDefaultBox }){
 
           {/* {loginError && <p style={{color: "red"}}>{loginError}</p>} */}
           
-          <LoginForm onLogin={handleLogin}></LoginForm>
+          <LoginForm></LoginForm>
 
 
           {/* <BackButton onClick={() => setDefaultBox(true)}>
