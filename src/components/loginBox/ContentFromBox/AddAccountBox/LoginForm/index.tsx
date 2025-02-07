@@ -25,8 +25,8 @@ function LoginForm(){
        try {
             const url = "http://localhost:8000/api/auth";
             const {data: res} = await axios.post(url, data);
-            console.log(res.message);
-            navigate("/dashboard");           
+            console.log(res.message + "hi");
+            navigate("/feed");           
         } catch (error) {
             if(error.response && 
                error.response.status >= 400 &&
