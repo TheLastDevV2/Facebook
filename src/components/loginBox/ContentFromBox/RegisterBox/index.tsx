@@ -13,23 +13,46 @@ import { Link} from "react-router-dom";
 
 function  RegisterBox( {setDefaultBox}){
 
+
     const [data, setData] = useState({
         firstName: "",
         lastName: "",
-        birthDay: "",
-        birthMonth: "",
-        birthYear: "",
+        birthDay:["", "", ""],
         gender: "",
         email: "",
         password: ""
 
     })
+
+    //birthDay: [dd/mm/yyyy]
     const[error, setError]= useState("");
     
 
-    const handleChange = ({currentTarget:input}) => {
-        console.log(input.name, input.value);
-        setData({...data, [input.name]: input.value})
+    const handleChange = ( { currentTarget:input } ) => {
+
+        const {name, value} = input;
+        if(input.name === "birthDay" ||
+            input.name === "birthMonth" ||
+            input.name === "birthYear"
+        ){
+            console.log("setting array");
+            const index = name === "birthDay" ? 0 : name === "birthMonth" ? 1 : 2;
+            const newBirthDay = [...data.birthDay];
+            newBirthDay[index] = input.value;
+
+            setData(( prevData ) =>({
+                ...prevData,
+                birthDay: newBirthDay
+            }));
+            setData({ ...data, birthDay: newBirthDay})
+            console.log(data.birthDay)
+        }
+        else{
+            setData(( prevData ) => ({
+                ...prevData,
+                [name]: value,
+            }))
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -88,60 +111,35 @@ function  RegisterBox( {setDefaultBox}){
 
                     <InputLine>
                         <BirthSelect name="birthDay"
-                        value={data.birthDay}
+                        value={data.birthDay[0]}
                         onChange={handleChange}
+                        defaultValue={"01"}
                         required
-                        >
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                            <option>13</option>
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
-                            <option>18</option>
-                            <option>19</option>
-                            <option>20</option>
-                            <option>21</option>
-                            <option>22</option>
-                            <option>23</option>
-                            <option>24</option>
-                            <option>25</option>
-                            <option>26</option>
-                            <option>27</option>
-                            <option>28</option>
-                            <option>29</option>
-                            <option>30</option>
-                            <option>31</option>
+                        >   
+                             <option value="">Dia</option>
+                            {Array.from({ length: 31 }, (_, i) => (
+                                <option key={i + 1} value={i + 1}>{i + 1}</option>
+                            ))}
                         </BirthSelect>
 
                         <BirthSelect
                         name="birthMonth"
-                        value={data.birthMonth}
+                        value={data.birthDay[1]}
                         onChange={handleChange}
                         required>
-                            <option>Jan</option>
-                            <option>Fev</option>
-                            <option>Mar</option>
-                            <option>Abr</option>
-                            <option>Mai</option>
-                            <option>Jun</option>
-                            <option>Jul</option>
-                            <option>Ago</option>
-                            <option>Set</option>
-                            <option>Out</option>
-                            <option>Nov</option>
-                            <option>Dez</option>
+                            <option value="">Mês</option>
+                            <option value="01">Jan</option>
+                            <option value="02">Fev</option>
+                            <option value="03">Mar</option>
+                            <option value="04">Abr</option>
+                            <option value="05">Mai</option>
+                            <option value="06">Jun</option>
+                            <option value="07">Jul</option>
+                            <option value="08">Ago</option>
+                            <option value="09">Set</option>
+                            <option value="10">Out</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dez</option>
 
                         </BirthSelect>
 
@@ -150,7 +148,7 @@ function  RegisterBox( {setDefaultBox}){
                         min="1900"
                         max="2025"
                         name="birthYear"
-                        value={data.birthYear}
+                        value={data.birthDay[2]}
                         placeholder="Ano"
                         onChange={handleChange}
                         required>
