@@ -6,11 +6,49 @@ import { BirthSelect, BoxForm, BoxHeader, Container,DefaultInput,FormContent,
     SubmitBtn,
     AccBtn
 } from "./style.ts";
-
+import { useState } from "react";
+import axios from "axios";
+import { Link} from "react-router-dom";
 
 
 function  RegisterBox( {setDefaultBox}){
 
+    const [data, setData] = useState({
+        firstName: "",
+        lastName: "",
+        birthDay: "",
+        birthMonth: "",
+        birthYear: "",
+        gender: "",
+        email: "",
+        password: ""
+
+    })
+    const[error, setError]= useState("");
+    
+
+    const handleChange = ({currentTarget:input}) => {
+        console.log(input.name, input.value);
+        setData({...data, [input.name]: input.value})
+    }
+
+    const handleSubmit = async (e) => {
+       
+        e.preventDefault()
+        try{
+            const url = "http://localhost:8000/api/users";
+            const { data:res } : any = await axios.post(url,data);    
+            setDefaultBox(2);
+            console.log(res)
+        }catch(error){
+            if( error.response && 
+                error.response.status >= 400 &&
+                error.response.status <= 500
+               ){
+                setError(error.data.message)
+            }
+        }
+    };
 
     return (
         <Container> 
@@ -24,18 +62,24 @@ function  RegisterBox( {setDefaultBox}){
 
             <BoxForm>
 
-                <FormContent>
+                <FormContent onSubmit={handleSubmit}>
                     <InputLine>
                         <DefaultInput
-
+                        name="firstName"
                         placeholder="Nome"
+                        value={data.firstName}
+                        onChange={handleChange}
                         required
                         >
 
                         </DefaultInput>
 
                         <DefaultInput
+
+                        name="lastName"
+                        value={data.lastName}
                         placeholder="Sobrenome"
+                        onChange={handleChange}
                         required
                         >
                             
@@ -43,7 +87,11 @@ function  RegisterBox( {setDefaultBox}){
                     </InputLine>
 
                     <InputLine>
-                        <BirthSelect required>
+                        <BirthSelect name="birthDay"
+                        value={data.birthDay}
+                        onChange={handleChange}
+                        required
+                        >
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -77,7 +125,11 @@ function  RegisterBox( {setDefaultBox}){
                             <option>31</option>
                         </BirthSelect>
 
-                        <BirthSelect required>
+                        <BirthSelect
+                        name="birthMonth"
+                        value={data.birthMonth}
+                        onChange={handleChange}
+                        required>
                             <option>Jan</option>
                             <option>Fev</option>
                             <option>Mar</option>
@@ -97,7 +149,10 @@ function  RegisterBox( {setDefaultBox}){
                         type="number"
                         min="1900"
                         max="2025"
+                        name="birthYear"
+                        value={data.birthYear}
                         placeholder="Ano"
+                        onChange={handleChange}
                         required>
 
                         </DefaultInput>
@@ -108,7 +163,8 @@ function  RegisterBox( {setDefaultBox}){
                         type="radio" 
                         id="homem" 
                         name="gender"
-                        value='man'
+                        value="man"
+                        onChange={handleChange}
                         required>
                         </GenderInput>
                         <GenderLabel htmlFor="man">Homem</GenderLabel>
@@ -118,7 +174,9 @@ function  RegisterBox( {setDefaultBox}){
                         type="radio" 
                         name="gender"
                         id="mulher"
-                        value='woman'>
+                        value="woman"
+                        onChange={handleChange}
+                        >
                         </GenderInput>
                         <GenderLabel htmlFor="man">Mulher</GenderLabel>
 
@@ -127,7 +185,8 @@ function  RegisterBox( {setDefaultBox}){
                         type="radio" 
                         name="gender"
                         id="personalizado"
-                        value='other'
+                        value="other"
+                        onChange={handleChange}
                         >
                         </GenderInput>
                         <GenderLabel htmlFor="personalizado">Personalizado</GenderLabel>
@@ -138,18 +197,24 @@ function  RegisterBox( {setDefaultBox}){
                         <DefaultInput
                         type="email"
                         placeholder="Email"
+                        value={data.email}
+                        name="email"
+                        onChange={handleChange}
                         required>    
 
                         </DefaultInput>
                         <DefaultInput
+                        value={data.password}
+                        name="password"                        
                         type="password"
                         placeholder="Senha"
+                        onChange={handleChange}
                         required>
 
                         </DefaultInput>
                     
                     </InputLine>
-
+                    {error && <div>{error}</div>}
                     <SubmitBtn type="submit">Cadastre-se</SubmitBtn>
                 </FormContent>
 

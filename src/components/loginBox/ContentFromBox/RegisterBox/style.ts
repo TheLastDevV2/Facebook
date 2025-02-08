@@ -43,7 +43,7 @@ export const SubTittleHeader = styled.div`
     color: #8a8d91;
  
 `
-export const BoxForm = styled.form`
+export const BoxForm = styled.div`
 
 
 `
