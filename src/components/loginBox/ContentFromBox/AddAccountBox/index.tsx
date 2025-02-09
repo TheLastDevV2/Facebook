@@ -13,24 +13,7 @@ import LoginForm from "./LoginForm/index.tsx"
 
 
 function AddAccountBox( { setDefaultBox }){
-    const [loginError, setLoginError] = useState("");
-
     
-    const handleLogin = (email, password) =>{
-      
-      console.log("Tentativa de login com:", email, password);
-
-      if (email === "isaaclindo@gmail.com" ||  password === 'password'){
-        alert("Login concluido");
-      }
-      else{
-        // setLoginError("Email ou senha incorretos");
-      }
-    }
-
-
-
-
     return(
         
         <Container >
@@ -46,7 +29,7 @@ function AddAccountBox( { setDefaultBox }){
 
             <RecoverAccount onClick={()=> 0}>Esqueceu sua conta? </RecoverAccount>
             <hr style={{width:"80%", color: "#dddfe2"}}/>
-            <CreateAccount onClick={() => setDefaultBox(3)}>Criar uma nova conta</CreateAccount>
+            <CreateAccount onClick={() => setDefaultBox(2)}>Criar uma nova conta</CreateAccount>
         </Container>
     )
 }

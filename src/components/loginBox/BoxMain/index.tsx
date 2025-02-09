@@ -12,11 +12,9 @@ function Box(){
         <>
             {defaultBox == 1 ? 
 
-            <LoginBox setDefaultBox={setDefaultBox}/> 
-            : 
-            defaultBox == 2 ?
+            // <LoginBox setDefaultBox={setDefaultBox}/> 
             <AddAccountBox setDefaultBox={setDefaultBox}/>
-            :
+            : 
             <RegisterBox setDefaultBox={setDefaultBox}/>
             
             }

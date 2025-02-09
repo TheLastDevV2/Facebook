@@ -15,6 +15,9 @@ export const Container = styled.div`
     padding-bottom: 132px ; 
     padding-top: 92px;
     margin: 0;
+    @media(max-width: 1200px){
+        height: 70vh;
+    }
 `
 export const Content = styled.main`
     width: 100%;

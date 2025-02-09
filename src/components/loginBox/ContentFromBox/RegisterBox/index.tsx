@@ -61,14 +61,17 @@ function  RegisterBox( {setDefaultBox}){
         try{
             const url = "http://localhost:8000/api/users";
             const { data:res } : any = await axios.post(url,data);    
-            setDefaultBox(2);
+            setDefaultBox(1);
             console.log(res)
         }catch(error){
             if( error.response && 
                 error.response.status >= 400 &&
                 error.response.status <= 500
                ){
-                setError(error.data.message)
+          
+                setError(error.response.data.message);
+                
+                
             }
         }
     };
@@ -212,14 +215,14 @@ function  RegisterBox( {setDefaultBox}){
                         </DefaultInput>
                     
                     </InputLine>
-                    {error && <div>{error}</div>}
+                    {error && <div style={{color: "red"}}>{error}</div>}
                     <SubmitBtn type="submit">Cadastre-se</SubmitBtn>
                 </FormContent>
 
               
 
             </BoxForm>
-            <AccBtn onClick={() => setDefaultBox(2)}>Já tem uma conta?</AccBtn>
+            <AccBtn onClick={() => setDefaultBox(1)}>Já tem uma conta?</AccBtn>
 
         </Container>
 
