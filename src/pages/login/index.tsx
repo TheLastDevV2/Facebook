@@ -3,8 +3,10 @@ import { BigLogo, Container, Content, LogoBox, Text }   from "./style.ts";
 import Logo from "../../assets/faceLogo.svg";
 import Box from "../../components/loginBox/BoxMain/index.tsx";
 import Footer from "../../components/footer/index.tsx";
-function LoginPage(){
-    
+
+
+function LoginPage( ){
+        
     return(
 
         <>
@@ -16,7 +18,7 @@ function LoginPage(){
                         <Text>Conecte-se a amigos e ao mundo à sua volta no Facebook.</Text>
                     </LogoBox>
 
-                    <Box/>
+                    <Box /> 
                     
                 </Content>
 
